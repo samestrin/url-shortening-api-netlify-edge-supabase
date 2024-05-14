@@ -37,6 +37,8 @@ export async function generateShortUrl(longUrl: string): Promise<string> {
       throw error;
     }
     if (data && data[0]?.short_url) {
+      console.log("data");
+      console.log(data);
       return data[0].short_url;
     }
     let shortUrl: string;
@@ -51,9 +53,9 @@ export async function generateShortUrl(longUrl: string): Promise<string> {
         console.error("Error checking for collision:", error);
         throw error;
       }
+      console.log("data");
       console.log(data);
-      console.log(error);
-      isCollision = data.length > 0;
+      isCollision = !!data;
     }
     ({ data, error } = await fetchFromSupabase("urls", {
       method: "POST",
