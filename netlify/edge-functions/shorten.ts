@@ -7,20 +7,32 @@ const urlBase = Deno.env.get("URL_BASE") || "";
 const { generateShortUrl } = handler();
 
 /**
- * Redirects to the long URL associated with the given short URL.
+ * Shortens a given long URL and stores it in Supabase.
  *
  * @param request - The incoming HTTP request.
- * @returns A redirection response to the long URL or an error message.
- * @throws If an error occurs while fetching the long URL from Supabase.
+ * @returns The shortened URL or an error message.
+ * @throws If an error occurs while shortening the URL or storing it in Supabase.
  *
  * @example
  * // Example usage
- * curl -X GET https://your-api-url/shortUrl
+ * curl -X POST https://your-api-url/shorten -d "url=https://example.com"
+ * curl -X POST https://your-api-url/shorten -F "url=https://example.com"
  */
 export default async (request: Request): Promise<Response> => {
   try {
-    const formData = await multiParser(request);
-    const url = formData.fields.url;
+    let url: string | null = null;
+
+    const contentType = request.headers.get("content-type");
+    if (contentType && contentType.includes("multipart/form-data")) {
+      const formData = await multiParser(request);
+      url = formData.fields.url;
+    } else if (
+      contentType &&
+      contentType.includes("application/x-www-form-urlencoded")
+    ) {
+      const formData = new URLSearchParams(await request.text());
+      url = formData.get("url");
+    }
 
     if (!url) {
       return new Response(JSON.stringify({ error: "No URL provided" }), {
