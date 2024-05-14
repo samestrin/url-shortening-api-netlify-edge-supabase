@@ -16,10 +16,6 @@
   path = "/latest"
   function = "latest"
 
-[[edge_functions]]
-  path = "/hello"
-  function = "hello"
-
 
 [[edge_functions]]
   path = "/:shortUrl"

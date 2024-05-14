@@ -51,6 +51,8 @@ export async function generateShortUrl(longUrl: string): Promise<string> {
         console.error("Error checking for collision:", error);
         throw error;
       }
+      console.log(data);
+      console.log(error);
       isCollision = data.length > 0;
     }
     ({ data, error } = await fetchFromSupabase("urls", {
