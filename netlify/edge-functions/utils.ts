@@ -115,7 +115,6 @@ export function generateUuidShort(): string {
  * // How to utilize the function effectively.
  * await logClick(1);
  */
-
 export async function logClick(urlId: number): Promise<void> {
   const response = await fetch(`${SUPABASE_URL}/rest/v1/clicks`, {
     method: "POST",
