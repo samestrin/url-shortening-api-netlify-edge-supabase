@@ -1,0 +1,22 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[edge_functions]]
+  path = "/shorten"
+  function = "shorten"
+
+[[edge_functions]]
+  path = "/count"
+  function = "count"
+
+[[edge_functions]]
+  path = "/latest"
+  function = "latest"
+
+[[edge_functions]]
+  path = "/:shortUrl"
+  function = "redirect"
