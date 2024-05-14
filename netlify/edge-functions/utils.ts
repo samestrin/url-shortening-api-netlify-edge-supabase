@@ -20,7 +20,9 @@ export function generateShortUrl(): string {
   return crypto.randomUUID().substring(0, 7);
 }
 
-export default {
-  fetchFromSupabase,
-  generateShortUrl,
-};
+export default function handler() {
+  return {
+    fetchFromSupabase,
+    generateShortUrl,
+  };
+}

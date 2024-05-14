@@ -1,5 +1,7 @@
-import headers from "./headers.ts";
-import { fetchFromSupabase } from "./utils.ts";
+import { headers } from "./headers.ts";
+import handler from "./utils.ts";
+
+const { fetchFromSupabase } = handler();
 
 export default async (request: Request): Promise<Response> => {
   try {
