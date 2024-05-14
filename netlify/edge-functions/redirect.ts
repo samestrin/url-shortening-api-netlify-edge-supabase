@@ -1,7 +1,8 @@
 import handler from "./utils.ts";
 const { fetchFromSupabase, logClick, validateIpAddress } = handler();
+import { getConfig } from "./config.ts";
+const { URLSHORT_TRACK_CLICKS } = getConfig();
 
-const trackClicks = Deno.env.get("URLSHORT_TRACK_CLICKS") || false;
 /**
  * Handles redirection for shortened URLs, logs the click, IP address, and hostname.
  *
@@ -33,7 +34,7 @@ export default async (
     const urlId = data[0].id;
     const longUrl = data[0].long_url;
 
-    if (trackClicks) {
+    if (URLSHORT_TRACK_CLICKS) {
       // Extract IP address from connInfo
       const addr = connInfo.remoteAddr as Deno.NetAddr;
       const ip = addr?.hostname || "";
@@ -93,6 +94,7 @@ export async function getHostnameFromIp(ip: string): Promise<string> {
       return hostnames[0];
     } else {
       //throw new Error(`No hostname found for IP: ${ip}`);
+      return "unknown";
       console.error(`No hostname found for IP: ${ip}`);
     }
   } catch (error) {

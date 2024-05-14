@@ -1,11 +1,10 @@
 import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 import { isURL } from "https://deno.land/x/is_url/mod.ts";
-
 import { headers } from "./headers.ts";
 import handler from "./utils.ts";
 const { generateShortUrl } = handler();
-
-const urlBase = Deno.env.get("URLSHORT_URL_BASE") || "";
+import { getConfig } from "./config.ts";
+const { URLSHORT_URL_BASE } = getConfig();
 
 /**
  * Shortens a given long URL and stores it in Supabase.
@@ -48,9 +47,10 @@ export default async (request: Request): Promise<Response> => {
         headers,
       });
     }
-
+    console.log("url", url);
     let shortUrl = await generateShortUrl(url);
-    shortUrl = urlBase + shortUrl;
+    console.log("shortUrl", shortUrl);
+    shortUrl = URLSHORT_URL_BASE + shortUrl;
 
     return new Response(JSON.stringify({ shortUrl }), { status: 200, headers });
   } catch (error) {

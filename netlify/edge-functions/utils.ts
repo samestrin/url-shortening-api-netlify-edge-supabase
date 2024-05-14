@@ -1,5 +1,6 @@
-const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
-const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY");
+import { getConfig } from "./config.ts";
+
+const { SUPABASE_URL, SUPABASE_ANON_KEY } = getConfig();
 
 /**
  * Fetches data from Supabase.
@@ -22,8 +23,8 @@ export async function fetchFromSupabase(
     ...options,
     headers: {
       ...options.headers,
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`,
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
     },
   });
 
@@ -60,8 +61,8 @@ export async function writeToSupabase(endpoint: string, options: RequestInit) {
     ...options,
     headers: {
       ...options.headers,
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`,
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
     },
   });
 
@@ -104,6 +105,7 @@ export async function generateShortUrl(longUrl: string): Promise<string> {
 
     let shortUrl: string;
     let isCollision = true;
+
     while (isCollision) {
       shortUrl = generateUuidShort();
       const collisionData = await fetchFromSupabase(
