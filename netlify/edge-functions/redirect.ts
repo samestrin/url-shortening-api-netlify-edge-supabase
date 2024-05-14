@@ -1,6 +1,7 @@
 import handler from "./utils.ts";
 const { fetchFromSupabase, logClick, validateIpAddress } = handler();
-const trackClicks = Deno.env.get("TRACK_CLICKS") || false;
+
+const trackClicks = Deno.env.get("URLSHORT_TRACK_CLICKS") || false;
 /**
  * Handles redirection for shortened URLs, logs the click, IP address, and hostname.
  *
