@@ -12,9 +12,20 @@ _This replaces the legacy [url-shortening-api-netlify-supabase](https://github.c
 
 - **URL Shortening**: Convert long URLs into short, manageable links that are easier to share.
 - **URL Validation**: Ensures that only valid URLs with proper protocols are processed.
-- **Automatic URL Deduplication**: Checks the database to avoid storing duplicate entries for the same URL.
-- **High Performance**: Leveraging Netlify Edge Functions combined with the Supabase REST API for high-speed data retrieval and storage.
-- **Error Handling**: Robust error handling mechanisms to provide clear feedback on the nature of issues encountered.
+- **URL Redirection**: Redirect users to the original long URL based on the short URL.
+- **Retrieve Latest Shortened URLs**: Access the most recently created short URLs.
+- **URL Count**: Get the total number of URLs shortened.
+- **API Versioning**: Retrieve the current version of the API.
+- **CORS Support**: Handle cross-origin resource sharing with appropriate headers.
+- **Error Handling**: Graceful error handling with appropriate HTTP status codes and error messages.
+
+### **Dependencies**
+
+- **Node.js**: The script runs in a Node.js environment.
+- **Deno**: A secure runtime for JavaScript and TypeScript.
+- **Supabase (REST API)**: A backend-as-a-service providing a Postgres database, authentication, storage, and more.
+- **Netlify Edge Functions**: Serverless functions that run at the edge, closer to your users.
+- **multiParser**: Parses multipart form data.
 
 ## Endpoints
 
@@ -105,6 +116,18 @@ Use curl to make a request:
 
 ```bash
 curl http://localhost/version
+```
+
+The server responds with:
+
+```bash
+{
+    "name": "url-shortening-api-netlify-edge-supabase",
+    "version": "0.0.1",
+    "description": "url-shortening-api-netlify-edge-supabase is a URL shortener service using Netlify Edge Functions and the Supabase REST API.",
+    "author": "Sam Estrin",
+    "homepage": "https://github.com/samestrin/url-shortening-api-netlify-edge-supabase#readme"
+}
 ```
 
 ## CORS
