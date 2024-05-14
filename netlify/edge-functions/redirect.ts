@@ -1,6 +1,17 @@
 import handler from "./utils.ts";
 const { fetchFromSupabase, logClick } = handler();
 
+/**
+ * Handles redirection for shortened URLs and logs the click.
+ *
+ * @param request - The incoming request object.
+ * @returns A response object with a redirection or an error message.
+ * @throws Throws an error if there is an issue with fetching data from Supabase or logging the click.
+ *
+ * @example
+ * // This function is used as an Edge Function to handle URL redirection.
+ * // No direct invocation example is provided as it handles HTTP requests.
+ */
 export default async (request: Request): Promise<Response> => {
   try {
     const shortUrl = new URL(request.url).pathname.replace("/", "");
