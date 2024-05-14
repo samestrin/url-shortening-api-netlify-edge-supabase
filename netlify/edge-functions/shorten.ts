@@ -3,8 +3,9 @@ import { isURL } from "https://deno.land/x/is_url/mod.ts";
 
 import { headers } from "./headers.ts";
 import handler from "./utils.ts";
-const urlBase = Deno.env.get("URL_BASE") || "";
 const { generateShortUrl } = handler();
+
+const urlBase = Deno.env.get("URLSHORT_URL_BASE") || "";
 
 /**
  * Shortens a given long URL and stores it in Supabase.
