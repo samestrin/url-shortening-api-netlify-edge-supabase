@@ -27,6 +27,69 @@ _This replaces the legacy [url-shortening-api-netlify-supabase](https://github.c
 - **Netlify Edge Functions**: Serverless functions that run at the edge, closer to your users.
 - **multiParser**: Parses multipart form data.
 
+### **Installation**
+
+To set up the project locally, follow these steps:
+
+1.  **Clone the Repository**:
+
+```bash
+git clone https://github.com/samestrin/url-shortening-api-netlify-edge-supabase.git
+cd url-shortening-api-netlify-edge-supabase
+```
+
+2.  **Install Dependencies**: Ensure you have the required dependencies installed. Use npm or yarn to install any necessary packages.
+
+```bash
+npm install
+```
+
+3.  **Set Up Netlify CLI**: Install the Netlify CLI to deploy and test the functions locally.
+
+```bash
+
+npm install -g netlify-cli
+```
+
+4.  **Run the Functions Locally**: Use the Netlify CLI to run the edge functions locally.
+
+```bash
+netlify dev
+```
+
+### **Configuration**
+
+The `netlify.toml` file contains the configuration for the edge functions. Each function is mapped to a specific endpoint:
+
+```toml
+[build]
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[edge_functions]]
+  path = "/shorten"
+  function = "shorten"
+
+[[edge_functions]]
+  path = "/count"
+  function = "count"
+
+[[edge_functions]]
+  path = "/latest"
+  function = "latest"
+
+[[edge_functions]]
+  path = "/version"
+  function = "version"
+
+[[edge_functions]]
+  path = "/*"
+  function = "redirect"
+
+```
+
 ## Endpoints
 
 ### Shorten URL
