@@ -14,7 +14,7 @@ export default async (request: Request): Promise<Response> => {
     );
     const modifiedData = data.map((item: any) => ({
       ...item,
-      short_url: `${urlBase}/${item.short_url}`,
+      short_url: `${urlBase}${item.short_url}`,
     }));
 
     return new Response(JSON.stringify(modifiedData), { status: 200, headers });
