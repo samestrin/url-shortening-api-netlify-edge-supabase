@@ -17,5 +17,9 @@
   function = "latest"
 
 [[edge_functions]]
+  path = "/version"
+  function = "version
+
+[[edge_functions]]
   path = "/*"
   function = "redirect"
