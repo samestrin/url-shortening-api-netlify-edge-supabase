@@ -1,6 +1,6 @@
 import handler from "./utils.ts";
 const { fetchFromSupabase, logClick, validateIpAddress } = handler();
-
+const trackClicks = Deno.env.get("TRACK_CLICKS") || false;
 /**
  * Handles redirection for shortened URLs, logs the click, IP address, and hostname.
  *
@@ -32,25 +32,27 @@ export default async (
     const urlId = data[0].id;
     const longUrl = data[0].long_url;
 
-    // Extract IP address from connInfo
-    const addr = connInfo.remoteAddr as Deno.NetAddr;
-    const ip = addr?.hostname || "";
-    let ipAddress = ip || request.headers.get("x-forwarded-for") || "";
+    if (trackClicks) {
+      // Extract IP address from connInfo
+      const addr = connInfo.remoteAddr as Deno.NetAddr;
+      const ip = addr?.hostname || "";
+      let ipAddress = ip || request.headers.get("x-forwarded-for") || "";
 
-    let hostname = "";
-    if (validateIpAddress(ipAddress)) {
-      try {
-        hostname = await getHostnameFromIp(ipAddress);
-      } catch (error) {
-        console.error(`Error resolving hostname for IP ${ipAddress}:`, error);
+      let hostname = "";
+      if (validateIpAddress(ipAddress)) {
+        try {
+          hostname = await getHostnameFromIp(ipAddress);
+        } catch (error) {
+          console.error(`Error resolving hostname for IP ${ipAddress}:`, error);
+        }
+      } else {
+        ipAddress = "";
+        hostname = "unknown";
       }
-    } else {
-      ipAddress = "";
-      hostname = "unknown";
-    }
 
-    // Log the click with IP address and hostname
-    await logClick(urlId, ipAddress, hostname);
+      // Log the click with IP address and hostname
+      await logClick(urlId, ipAddress, hostname);
+    }
 
     return new Response(null, {
       status: 302,
