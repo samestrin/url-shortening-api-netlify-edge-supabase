@@ -52,7 +52,9 @@ npm install
 npm install -g netlify-cli
 ```
 
-4.  **Run the Functions Locally**: Use the Netlify CLI to run the edge functions locally.
+4. **Configure Environment Variables**: Create a `.env` file in the project root and define `SUPABASE_URL` and `SUPABASE_ANON_KEY` with your Supabase project credentials. Optionally set `URLSHORT_URL_BASE` to your hostname (example: https://frwrd.ing/), and `URLSHORT_TRACK_CLICKS` to `true` to enable short link click tracking.
+
+5. **Run the Functions Locally**: Use the Netlify CLI to run the edge functions locally.
 
 ```bash
 netlify dev
