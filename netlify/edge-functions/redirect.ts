@@ -53,7 +53,7 @@ export default async (
     await logClick(urlId, ipAddress, hostname);
 
     return new Response(null, {
-      status: 301,
+      status: 302,
       headers: { Location: longUrl },
     });
   } catch (error) {
@@ -89,7 +89,8 @@ export async function getHostnameFromIp(ip: string): Promise<string> {
       // Return the first hostname in the result
       return hostnames[0];
     } else {
-      throw new Error(`No hostname found for IP: ${ip}`);
+      //throw new Error(`No hostname found for IP: ${ip}`);
+      console.error(`No hostname found for IP: ${ip}`);
     }
   } catch (error) {
     console.error(`Failed to resolve hostname for IP: ${ip}`, error);
