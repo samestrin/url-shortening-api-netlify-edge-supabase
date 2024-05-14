@@ -1,6 +1,7 @@
+import packageJson from "../../package.json" assert { type: "json" };
+
 export default async (request: Request): Promise<Response> => {
   try {
-    const packageJson = JSON.parse(await Deno.readTextFile("./package.json"));
     const { name, description, author, homepage, version } = packageJson;
 
     const response = {
