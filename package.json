@@ -1,7 +1,7 @@
 {
   "name": "url-shortening-api-netlify-edge-supabase",
   "version": "0.0.1",
-  "description": "",
+  "description": "url-shortening-api-netlify-edge-supabase is a URL shortener service using Netlify Edge Functions and the Supabase REST API.",
   "main": "public/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
