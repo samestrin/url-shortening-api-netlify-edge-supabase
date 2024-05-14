@@ -1,5 +1,16 @@
 import packageJson from "../../package.json" assert { type: "json" };
 
+/**
+ * Retrieves the current version of the API.
+ *
+ * @param request - The incoming HTTP request.
+ * @returns A response containing the API version information or an error message.
+ * @throws If an error occurs while reading the package.json file.
+ *
+ * @example
+ * // Example usage
+ * curl -X GET https://your-api-url/version
+ */
 export default async (request: Request): Promise<Response> => {
   try {
     const { name, description, author, homepage, version } = packageJson;

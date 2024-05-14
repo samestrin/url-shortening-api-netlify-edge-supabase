@@ -9,8 +9,8 @@ const { fetchFromSupabase, logClick } = handler();
  * @throws Throws an error if there is an issue with fetching data from Supabase or logging the click.
  *
  * @example
- * // This function is used as an Edge Function to handle URL redirection.
- * // No direct invocation example is provided as it handles HTTP requests.
+ * // Example usage
+ * curl -X GET https://your-api-url/shortUrl
  */
 export default async (request: Request): Promise<Response> => {
   try {
