@@ -1,6 +1,17 @@
 import handler from "./utils.ts";
 const { fetchFromSupabase } = handler();
 
+/**
+ * Redirects to the long URL associated with the given short URL.
+ *
+ * @param request - The incoming HTTP request.
+ * @returns A redirection response to the long URL or an error message.
+ * @throws If an error occurs while fetching the long URL from Supabase.
+ *
+ * @example
+ * // Example usage
+ * curl -X GET https://your-api-url/shortUrl
+ */
 export default async (request: Request): Promise<Response> => {
   try {
     const shortUrl = new URL(request.url).pathname.replace("/", "");

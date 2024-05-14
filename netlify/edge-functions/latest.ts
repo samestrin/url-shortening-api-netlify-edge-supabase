@@ -3,6 +3,17 @@ import handler from "./utils.ts";
 const urlBase = Deno.env.get("URL_BASE") ? Deno.env.get("URL_BASE") : "";
 const { fetchFromSupabase } = handler();
 
+/**
+ * Retrieves the latest URLs stored in Supabase.
+ *
+ * @param request - The incoming HTTP request.
+ * @returns The latest URLs from the Supabase database or an error message.
+ * @throws If an error occurs while fetching the latest URLs from Supabase.
+ *
+ * @example
+ * // Example usage
+ * curl -X GET "https://your-api-url/latest?count=5"
+ */
 export default async (request: Request): Promise<Response> => {
   console.log("here");
   try {
