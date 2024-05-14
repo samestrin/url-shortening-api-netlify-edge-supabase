@@ -1,11 +1,11 @@
 import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
-import { headers } from "./headers.ts";
+import headers from "./headers.ts";
 import { fetchFromSupabase, generateShortUrl } from "./utils.ts";
 
 export default async (request: Request): Promise<Response> => {
   try {
-    const form = await multiParser(request);
-    const url = form.fields.url;
+    const formData = await multiParser(request);
+    const url = formData.fields.url;
 
     if (!url) {
       return new Response(JSON.stringify({ error: "No URL provided" }), {

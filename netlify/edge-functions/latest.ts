@@ -1,4 +1,4 @@
-import { headers } from "./headers.ts";
+import headers from "./headers.ts";
 import { fetchFromSupabase } from "./utils.ts";
 
 export default async (request: Request): Promise<Response> => {

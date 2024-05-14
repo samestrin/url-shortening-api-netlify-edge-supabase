@@ -5,3 +5,5 @@ export const headers = {
   "Access-Control-Max-Age": "86400",
   "Content-Type": "application/json",
 };
+
+export default () => headers;
