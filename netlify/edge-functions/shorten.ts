@@ -2,6 +2,7 @@ import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 import { headers } from "./headers.ts";
 import handler from "./utils.ts";
 
+const urlBase = Deno.env.get("URL_BASE") ? Deno.env.get("URL_BASE") : "";
 const { fetchFromSupabase, generateShortUrl } = handler();
 
 export default async (request: Request): Promise<Response> => {
@@ -16,7 +17,9 @@ export default async (request: Request): Promise<Response> => {
       });
     }
 
-    const shortUrl = generateShortUrl();
+    let shortUrl = generateShortUrl();
+    shortUrl = urlBase + shortUrl;
+
     await fetchFromSupabase("urls", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
