@@ -1,12 +1,11 @@
 import handler from "./utils.ts";
-const { fetchFromSupabase } = handler();
+const { fetchFromSupabase, logClick } = handler();
 
 export default async (request: Request): Promise<Response> => {
   try {
     const shortUrl = new URL(request.url).pathname.replace("/", "");
-
     const data = await fetchFromSupabase(
-      `urls?select=long_url&short_url=eq.${shortUrl}`,
+      `urls?select=id,long_url&short_url=eq.${shortUrl}`,
       { method: "GET" }
     );
 
@@ -16,9 +15,15 @@ export default async (request: Request): Promise<Response> => {
       });
     }
 
+    const urlId = data[0].id;
+    const longUrl = data[0].long_url;
+
+    // Log the click
+    await logClick(urlId);
+
     return new Response(null, {
       status: 301,
-      headers: { Location: data[0].long_url },
+      headers: { Location: longUrl },
     });
   } catch (error) {
     console.error("Error:", error);
