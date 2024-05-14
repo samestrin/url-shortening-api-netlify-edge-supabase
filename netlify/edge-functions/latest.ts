@@ -15,7 +15,6 @@ const { fetchFromSupabase } = handler();
  * curl -X GET "https://your-api-url/latest?count=5"
  */
 export default async (request: Request): Promise<Response> => {
-  console.log("here");
   try {
     const url = new URL(request.url);
     const count = url.searchParams.get("count") || "10";

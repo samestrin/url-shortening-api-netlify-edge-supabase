@@ -13,6 +13,7 @@ _This replaces the legacy [url-shortening-api-netlify-supabase](https://github.c
 - **URL Shortening**: Convert long URLs into short, manageable links that are easier to share.
 - **URL Validation**: Ensures that only valid URLs with proper protocols are processed.
 - **URL Redirection**: Redirect users to the original long URL based on the short URL.
+- **Link Tracking**: Track which short URLs are served.
 - **Retrieve Latest Shortened URLs**: Access the most recently created short URLs.
 - **URL Count**: Get the total number of URLs shortened.
 - **API Versioning**: Retrieve the current version of the API.

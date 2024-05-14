@@ -21,10 +21,34 @@ Your project’s URL (`SUPABASE_URL`) and anon key (`SUPABASE_ANON_KEY`), which 
 Create Tables: Use the SQL editor in Supabase to create the necessary tables for your application. For the URL shortener, you’ll need a table to store URLs with columns for the short URL and the original URL.
 
 ```sql
+-- Create the urls table
 CREATE TABLE urls (
-  id SERIAL PRIMARY KEY,
-  short_url VARCHAR(255) UNIQUE NOT NULL,
-  long_url VARCHAR(2048) NOT NULL
+    id SERIAL PRIMARY KEY,
+    short_url VARCHAR(255) UNIQUE NOT NULL,
+    long_url VARCHAR(2048) NOT NULL,
+    user_id INT REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create the hostnames table
+CREATE TABLE hostnames (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- Create the ip_addresses table
+CREATE TABLE ip_addresses (
+    id SERIAL PRIMARY KEY,
+    address VARCHAR(45) UNIQUE NOT NULL
+);
+
+-- Create the clicks table
+CREATE TABLE clicks (
+    id SERIAL PRIMARY KEY,
+    url_id INT REFERENCES urls(id) ON DELETE CASCADE,
+    ip_address_id INT REFERENCES ip_addresses(id),
+    hostname_id INT REFERENCES hostnames(id),
+    clicked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
