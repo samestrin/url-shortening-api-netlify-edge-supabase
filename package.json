@@ -1,15 +1,34 @@
 {
   "name": "url-shortening-api-netlify-edge-supabase",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "public/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "netlify",
+    "lambda",
+    "netlify edge function",
+    "netlify edge",
+    "supabase",
+    "url shortener",
+    "url",
+    "rest",
+    "api"
+  ],
+  "author": "Sam Estrin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samestrin/url-shortening-api-netlify-edge-supabase/issues"
+  },
+  "homepage": "https://github.com/samestrin/url-shortening-api-netlify-edge-supabase#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samestrin/url-shortening-api-netlify-edge-supabase.git"
+  },
   "devDependencies": {
+    "prettier": "^3.2.5",
     "typescript": "^5.4.5"
   }
 }

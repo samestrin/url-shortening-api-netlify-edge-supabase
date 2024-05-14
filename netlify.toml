@@ -1,6 +1,5 @@
 [build]
   publish = "public"
-  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -18,5 +17,11 @@
   function = "latest"
 
 [[edge_functions]]
+  path = "/hello"
+  function = "hello"
+
+
+[[edge_functions]]
   path = "/:shortUrl"
   function = "redirect"
+

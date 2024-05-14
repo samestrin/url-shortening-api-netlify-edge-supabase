@@ -1,7 +1,5 @@
 import handler from "./utils.ts";
-
 const { fetchFromSupabase } = handler();
-
 export default async (request: Request): Promise<Response> => {
   try {
     const shortUrl = new URL(request.url).pathname.replace("/", "");
@@ -18,10 +16,14 @@ export default async (request: Request): Promise<Response> => {
       status: 301,
       headers: { Location: data[0].long_url },
     });
-  } catch (err) {
+  } catch (error) {
     return new Response(
-      JSON.stringify({ error: "Internal server error", details: err.message }),
+      JSON.stringify({
+        error: "Internal server error",
+        details: error.message,
+      }),
       { status: 500 }
     );
   }
 };
+export const config = { path: "/" };

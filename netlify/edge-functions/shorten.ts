@@ -1,9 +1,8 @@
 import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 import { headers } from "./headers.ts";
 import handler from "./utils.ts";
-
-const urlBase = Deno.env.get("URL_BASE") ? Deno.env.get("URL_BASE") : "";
-const { fetchFromSupabase, generateShortUrl } = handler();
+const urlBase = Deno.env.get("URL_BASE") || "";
+const { generateShortUrl } = handler();
 
 export default async (request: Request): Promise<Response> => {
   try {
@@ -17,20 +16,20 @@ export default async (request: Request): Promise<Response> => {
       });
     }
 
-    let shortUrl = generateShortUrl();
-    shortUrl = urlBase + shortUrl;
-
-    await fetchFromSupabase("urls", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ short_url: shortUrl, long_url: url }),
-    });
+    let shortUrl = urlBase + (await generateShortUrl(url));
 
     return new Response(JSON.stringify({ shortUrl }), { status: 200, headers });
-  } catch (err) {
+  } catch (error) {
+    console.error("Error in function execution:", error);
+
     return new Response(
-      JSON.stringify({ error: "Internal server error", details: err.message }),
+      JSON.stringify({
+        error: "Internal server error",
+        details: error.message,
+      }),
       { status: 500, headers }
     );
   }
 };
+
+export const config = { path: "/shorten" };
