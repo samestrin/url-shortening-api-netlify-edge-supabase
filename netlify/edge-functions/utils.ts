@@ -148,5 +148,6 @@ export default function handler() {
     fetchFromSupabase,
     generateShortUrl,
     generateShortUrl,
+    logClick,
   };
 }
