@@ -16,7 +16,8 @@ export default async (request: Request): Promise<Response> => {
       });
     }
 
-    let shortUrl = urlBase + (await generateShortUrl(url));
+    let shortUrl = await generateShortUrl(url);
+    shortUrl = urlBase + shortUrl;
 
     return new Response(JSON.stringify({ shortUrl }), { status: 200, headers });
   } catch (error) {

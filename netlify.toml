@@ -5,6 +5,10 @@
   NODE_VERSION = "20"
 
 [[edge_functions]]
+  path = "/*"
+  function = "redirect"
+
+[[edge_functions]]
   path = "/shorten"
   function = "shorten"
 
@@ -15,9 +19,3 @@
 [[edge_functions]]
   path = "/latest"
   function = "latest"
-
-
-[[edge_functions]]
-  path = "/:shortUrl"
-  function = "redirect"
-

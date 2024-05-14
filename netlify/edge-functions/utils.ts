@@ -5,7 +5,6 @@ export async function fetchFromSupabase(
   endpoint: string,
   options: RequestInit
 ) {
-  console.log("options", options);
   const response = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, {
     ...options,
     headers: {
@@ -19,26 +18,22 @@ export async function fetchFromSupabase(
     throw new Error(`Supabase request failed: ${response.statusText}`);
   }
   let jsonResponse = await response.json();
-  console.log("jsonResponse", jsonResponse);
+
   return jsonResponse;
 }
-import {
-  fetchFromSupabase,
-  generateShortUrl as generateUuidShort,
-} from "./utils.ts";
+
 export async function generateShortUrl(longUrl: string): Promise<string> {
   try {
-    let { data, error } = await fetchFromSupabase(
+    const data = await fetchFromSupabase(
       "urls?select=short_url&long_url=eq." + longUrl,
       { method: "GET" }
     );
-    if (error) {
-      console.error("Error checking for existing long URL:", error);
+
+    if (!data) {
+      console.error("Error checking for existing long URL.");
       throw error;
     }
     if (data && data[0]?.short_url) {
-      console.log("data");
-      console.log(data);
       return data[0].short_url;
     }
     let shortUrl: string;
@@ -53,8 +48,6 @@ export async function generateShortUrl(longUrl: string): Promise<string> {
         console.error("Error checking for collision:", error);
         throw error;
       }
-      console.log("data");
-      console.log(data);
       isCollision = !!data;
     }
     ({ data, error } = await fetchFromSupabase("urls", {
