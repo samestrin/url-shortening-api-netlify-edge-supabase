@@ -1,8 +1,8 @@
 import handler from "./utils.ts";
 const { fetchFromSupabase, logClick, validateIpAddress } = handler();
 import { getConfig } from "./config.ts";
-const { URLSHORT_TRACK_CLICKS } = getConfig();
-
+const { URLSHORT_TRACK_CLICKS, URLSHORT_RESOLVE_HOSTNAME } = getConfig();
+console.log({ URLSHORT_TRACK_CLICKS, URLSHORT_RESOLVE_HOSTNAME });
 /**
  * Handles redirection for shortened URLs, logs the click, IP address, and hostname.
  *
@@ -41,7 +41,7 @@ export default async (
       let ipAddress = ip || request.headers.get("x-forwarded-for") || "";
 
       let hostname = "";
-      if (validateIpAddress(ipAddress)) {
+      if (URLSHORT_RESOLVE_HOSTNAME && validateIpAddress(ipAddress)) {
         try {
           hostname = await getHostnameFromIp(ipAddress);
         } catch (error) {

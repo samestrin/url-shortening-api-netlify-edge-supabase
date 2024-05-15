@@ -1,5 +1,4 @@
 import { getConfig } from "./config.ts";
-
 const { SUPABASE_URL, SUPABASE_ANON_KEY } = getConfig();
 
 /**
