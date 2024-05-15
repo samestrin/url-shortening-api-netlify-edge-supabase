@@ -1,6 +1,6 @@
 import { config } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
 
-export function getConfig() {
+export default function getConfig() {
   const env = config();
 
   return {
