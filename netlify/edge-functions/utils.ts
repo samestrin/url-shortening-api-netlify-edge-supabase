@@ -1,5 +1,10 @@
 import { getConfig } from "./config.ts";
-const { SUPABASE_URL, SUPABASE_ANON_KEY } = getConfig();
+const {
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY,
+  URLSHORT_DEFAULT_IP_ADDRESS_ID,
+  URLSHORT_DEFAULT_HOSTNAME_ID,
+} = getConfig();
 
 /**
  * Fetches data from Supabase.
@@ -193,59 +198,52 @@ export async function logClick(
 ): Promise<void> {
   // Fetch or insert the IP address
   let ipAddressId;
-  let ipAddressToUse = ipAddress || "unknown";
 
-  let ipAddressData = await fetchFromSupabase(
-    `ip_addresses?address=eq.${ipAddressToUse}`,
-    {
-      method: "GET",
-    }
-  );
-
-  if (ipAddressData.length === 0) {
-    const insertResponse = await writeToSupabase("ip_addresses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ address: ipAddressToUse }),
-    });
-
-    if (!insertResponse.ok) {
-      throw new Error(insertResponse.statusText);
-    }
-
-    ipAddressData = await fetchFromSupabase(
-      `ip_addresses?address=eq.${ipAddressToUse}`,
+  if (!ipAddress) {
+    ipAddressId = URLSHORT_DEFAULT_IP_ADDRESS_ID;
+  } else {
+    let ipAddressData = await fetchFromSupabase(
+      `ip_addresses?address=eq.${ipAddress}`,
       {
         method: "GET",
       }
     );
 
     if (ipAddressData.length === 0) {
-      throw new Error("Failed to retrieve IP address after insertion.");
-    }
+      const insertResponse = await writeToSupabase("ip_addresses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ address: ipAddressToUse }),
+      });
 
-    ipAddressId = ipAddressData[0].id;
-  } else {
-    ipAddressId = ipAddressData[0].id;
+      if (!insertResponse.ok) {
+        throw new Error(insertResponse.statusText);
+      }
+
+      ipAddressData = await fetchFromSupabase(
+        `ip_addresses?address=eq.${ipAddressToUse}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (ipAddressData.length === 0) {
+        throw new Error("Failed to retrieve IP address after insertion.");
+      }
+
+      ipAddressId = ipAddressData[0].id;
+    } else {
+      ipAddressId = ipAddressData[0].id;
+    }
   }
 
   // Fetch or insert the hostname
   let hostnameId;
 
   if (!hostname) {
-    // Fetch the default hostname ID
-    const defaultHostname = await fetchFromSupabase(
-      "hostnames?name=eq.unknown",
-      { method: "GET" }
-    );
-
-    if (defaultHostname.length === 0) {
-      throw new Error("Default hostname entry not found in database.");
-    }
-
-    hostnameId = defaultHostname[0].id;
+    hostnameId = URLSHORT_DEFAULT_HOSTNAME_ID;
   } else {
     let hostnameData = await fetchFromSupabase(
       `hostnames?name=eq.${hostname}`,

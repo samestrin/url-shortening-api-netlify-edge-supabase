@@ -1,8 +1,12 @@
-import { config } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
+let env: { [key: string]: string } = {};
+
+if (!Deno.env.get("SUPABASE_URL")) {
+  // Dynamically import dotenv config if not in production environment
+  const dotenv = await import("https://deno.land/x/dotenv@v3.2.2/mod.ts");
+  env = dotenv.config();
+}
 
 export function getConfig() {
-  const env = config();
-
   return {
     SUPABASE_URL: env.SUPABASE_URL || Deno.env.get("SUPABASE_URL") || "",
     SUPABASE_PASSWORD:
@@ -19,6 +23,14 @@ export function getConfig() {
       env.URLSHORT_RESOLVE_HOSTNAME ||
       Deno.env.get("URLSHORT_RESOLVE_HOSTNAME") ||
       false,
+    URLSHORT_DEFAULT_IP_ADDRESS_ID:
+      env.URLSHORT_DEFAULT_IP_ADDRESS_ID ||
+      Deno.env.get("URLSHORT_DEFAULT_IP_ADDRESS_ID") ||
+      1,
+    URLSHORT_DEFAULT_HOSTNAME_ID:
+      env.URLSHORT_DEFAULT_HOSTNAME_ID ||
+      Deno.env.get("URLSHORT_DEFAULT_HOSTNAME_ID") ||
+      1,
   };
 }
 

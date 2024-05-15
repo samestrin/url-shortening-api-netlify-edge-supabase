@@ -35,12 +35,17 @@ CREATE TABLE hostnames (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) UNIQUE NOT NULL
 );
+-- Insert a record into the hostnames table for unknown hostnames
+INSERT INTO hostnames (name) VALUES ('unknown');
 
 -- Create the ip_addresses table
 CREATE TABLE ip_addresses (
     id SERIAL PRIMARY KEY,
     address VARCHAR(45) UNIQUE NOT NULL
 );
+
+-- Insert a record into the ip_addresses table for unknown ip_addresses
+INSERT INTO ip_addresses (address) VALUES ('unknown');
 
 -- Create the clicks table
 CREATE TABLE clicks (
