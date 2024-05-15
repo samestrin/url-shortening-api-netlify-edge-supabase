@@ -23,6 +23,14 @@ export function getConfig() {
       env.URLSHORT_RESOLVE_HOSTNAME ||
       Deno.env.get("URLSHORT_RESOLVE_HOSTNAME") ||
       false,
+    URLSHORT_DEFAULT_IP_ADDRESS_ID:
+      env.URLSHORT_DEFAULT_IP_ADDRESS_ID ||
+      Deno.env.get("URLSHORT_DEFAULT_IP_ADDRESS_ID") ||
+      1,
+    URLSHORT_DEFAULT_HOSTNAME_ID:
+      env.URLSHORT_DEFAULT_HOSTNAME_ID ||
+      Deno.env.get("URLSHORT_DEFAULT_HOSTNAME_ID") ||
+      1,
   };
 }
 
