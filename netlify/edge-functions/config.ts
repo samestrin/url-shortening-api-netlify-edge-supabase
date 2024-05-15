@@ -2,7 +2,6 @@ import { config } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
 
 export function getConfig() {
   const env = config();
-
   return {
     SUPABASE_URL: env.SUPABASE_URL || Deno.env.get("SUPABASE_URL") || "",
     SUPABASE_PASSWORD:
