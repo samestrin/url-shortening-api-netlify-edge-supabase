@@ -12,6 +12,12 @@ export function getConfig() {
     URLSHORT_URL_BASE:
       env.URLSHORT_URL_BASE || Deno.env.get("URLSHORT_URL_BASE") || "",
     URLSHORT_TRACK_CLICKS:
-      env.URLSHORT_TRACK_CLICKS || Deno.env.get("URLSHORT_TRACK_CLICKS") || "",
+      env.URLSHORT_TRACK_CLICKS ||
+      Deno.env.get("URLSHORT_TRACK_CLICKS") ||
+      false,
+    URLSHORT_RESOLVE_HOSTNAME:
+      env.URLSHORT_RESOLVE_HOSTNAME ||
+      Deno.env.get("URLSHORT_RESOLVE_HOSTNAME") ||
+      false,
   };
 }
