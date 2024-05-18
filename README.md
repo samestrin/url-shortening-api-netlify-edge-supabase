@@ -6,6 +6,10 @@
 
 url-shortening-api-netlify-edge-supabase is a URL shortener service. It is a serverless application that provides URL shortening and retrieval functionalities. Utilizing Netlify Edge Functions and Supabase, a cloud-based database, the application offers a high performance, efficient and scalable solution for creating short URLs that redirect to the original, longer URLs.
 
+### Why Netlify Edge Functions?
+
+Netlify Edge Functions are run at the network edge, closer to your users, translating into faster load times. Netlify also offers 1M/month Edge Function executions per month **at the free tier**, a significant increase over 125k/month Function executions allocated at the same tier. At the Pro level you have 2m/month to work with.
+
 _This replaces the legacy [url-shortening-api-netlify-supabase](https://github.com/samestrin/url-shortening-api-netlify-supabase) project._
 
 ### **Features**
