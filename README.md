@@ -10,6 +10,11 @@ url-shortening-api-netlify-edge-supabase is a URL shortener service. It is a ser
 
 Netlify Edge Functions are run at the network edge, closer to your users, translating into faster load times. Netlify also offers 1M/month Edge Function executions per month **at the free tier**, a significant increase over 125k/month Function executions allocated at the same tier. At the Pro level you have 2m/month to work with.
 
+### Benefits of Edge Functions:
+
+- **Decreased latency**: Running logic closer to the end user can reduce not only the volume of data, but the distance that data needs to travel. If a user were sending a request in Arizona, a response time from a local node would be lower than one in London.
+- **Reduction in cold start boot times**: For serverless functions, cold start boot times average anywhere from 50-500ms on average. The cold start average for edge functions, on the other hand, is drastically reduced (50-200ms).
+
 _This replaces the legacy [url-shortening-api-netlify-supabase](https://github.com/samestrin/url-shortening-api-netlify-supabase) project._
 
 ### **Features**
